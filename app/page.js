@@ -53,7 +53,7 @@ export default function LandingPage() {
               {loading ? "Logging out..." : "Logout"}
             </button>
             <Link
-              href="/todolists"
+              href="/todo-lists"
               className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600"
             >
               Go to Your Lists

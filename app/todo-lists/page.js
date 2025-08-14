@@ -26,21 +26,18 @@ export default function TodoListsPage() {
     const unsub = onSnapshot(q, (snapshot) => {
       setLists(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
+
     return () => unsub();
   }, [user]);
 
   const addList = async () => {
     if (!newListName.trim()) return;
-    try {
-      await addDoc(collection(db, "todos"), {
-        uid: user.uid,
-        name: newListName,
-        createdAt: new Date(),
-      });
-      setNewListName("");
-    } catch (err) {
-      console.error("Error adding list:", err);
-    }
+    await addDoc(collection(db, "todos"), {
+      uid: user.uid,
+      name: newListName,
+      createdAt: new Date(),
+    });
+    setNewListName("");
   };
 
   const deleteList = async (listId) => {
@@ -53,7 +50,7 @@ export default function TodoListsPage() {
     <div className="p-4 max-w-2xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Your Lists</h2>
 
-      {/* Input to create a new list */}
+      {/* Create list */}
       <div className="flex gap-2 mb-6">
         <input
           value={newListName}
@@ -63,7 +60,7 @@ export default function TodoListsPage() {
         />
         <button
           onClick={addList}
-          className="bg-blue-500 text-white px-4 rounded"
+          className="bg-blue-500 text-white px-4 rounded hover:bg-blue-600"
         >
           Create List
         </button>
@@ -83,7 +80,7 @@ export default function TodoListsPage() {
           className="border rounded p-4 mb-4 bg-white shadow flex justify-between items-center"
         >
           <Link
-            href={`/todolists/${list.id}`}
+            href={`/todo-lists/${list.id}`}
             className="flex-grow hover:underline"
           >
             {list.name}
