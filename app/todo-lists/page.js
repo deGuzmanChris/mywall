@@ -3,7 +3,7 @@
 import { useUserAuth } from "../_utils/auth-context";
 import { useState, useEffect } from "react";
 import { db } from "../_utils/firebase";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   collection,
   addDoc,
@@ -16,6 +16,7 @@ import {
 
 export default function TodoListsPage() {
   const { user } = useUserAuth();
+  const router = useRouter();
   const [lists, setLists] = useState([]);
   const [newListName, setNewListName] = useState("");
 
@@ -44,55 +45,65 @@ export default function TodoListsPage() {
     await deleteDoc(doc(db, "todos", listId));
   };
 
-  if (!user) return <p className="p-4">Please login first</p>;
+  if (!user) return <p className="p-4 text-center">Please login first</p>;
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Your Lists</h2>
+    <div className="p-6 max-w-4xl mx-auto min-h-screen bg-gray-50">
+      <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-800">
+        My Todo Lists
+      </h1>
 
       {/* Create list */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-3 mb-8 justify-center">
         <input
           value={newListName}
           onChange={(e) => setNewListName(e.target.value)}
           placeholder="New list name..."
-          className="border p-2 flex-grow rounded"
+          className="border border-gray-300 p-3 flex-grow rounded-lg shadow-sm
+                     focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          onKeyDown={(e) => e.key === "Enter" && addList()}
         />
         <button
           onClick={addList}
-          className="bg-blue-500 text-white px-4 rounded hover:bg-blue-600"
+          className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md
+                     hover:bg-blue-600 active:scale-95 transition"
         >
-          Create List
+          ➕ 
         </button>
       </div>
 
       {/* Empty state */}
       {lists.length === 0 && (
-        <div className="text-center text-gray-500 mt-10">
-          No lists yet. Click "Create List" to get started!
+        <div className="text-gray-500 mt-10 text-center italic">
+          No lists yet. Create one above!
         </div>
       )}
 
-      {/* Existing lists */}
-      {lists.map((list) => (
-        <div
-          key={list.id}
-          className="border rounded p-4 mb-4 bg-white shadow flex justify-between items-center"
-        >
-          <Link
-            href={`/todo-lists/${list.id}`}
-            className="flex-grow hover:underline"
+      {/* Lists as cards */}
+      <ul className="flex grid gap-6 sm:grid-cols-2">
+        {lists.map((list) => (
+          <li
+            key={list.id}
+            onClick={() => router.push(`/todo-lists/${list.id}`)}
+            className="bg-white border border-gray-200 p-6 rounded-xl shadow-lg
+                       hover:shadow-xl hover:bg-gray-50 transition cursor-pointer
+                       flex justify-between items-center"
           >
-            {list.name}
-          </Link>
-          <button
-            onClick={() => deleteList(list.id)}
-            className="text-red-500 hover:text-red-700"
-          >
-            Delete
-          </button>
-        </div>
-      ))}
+            <span className="text-lg font-semibold text-gray-900">
+              {list.name}
+            </span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation(); 
+                deleteList(list.id);
+              }}
+              className="text-red-500 hover:text-red-700 active:scale-95 transition"
+            >
+              ❌
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

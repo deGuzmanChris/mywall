@@ -24,11 +24,12 @@ export const AuthContextProvider = ({ children }) => {
   };
  
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
-  }, [user]);
+  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+  return () => unsubscribe();
+}, []);
+
  
   return (
     <AuthContext.Provider value={{ user, gitHubSignIn, firebaseSignOut }}>

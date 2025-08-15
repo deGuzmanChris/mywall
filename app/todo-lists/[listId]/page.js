@@ -28,7 +28,7 @@ export default function ListPage() {
     const listRef = doc(db, "todos", listId);
     const unsub = onSnapshot(listRef, (docSnap) => {
       if (docSnap.exists()) setListName(docSnap.data().name);
-      else router.push("/todo-lists"); // redirect if list not found
+      else router.push("/todo-lists");
     });
     return () => unsub();
   }, [listId, user, router]);
@@ -68,6 +68,7 @@ export default function ListPage() {
         <input
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && addItem()} // ✅ Enter support
           placeholder="New item..."
           className="border p-2 flex-grow rounded"
         />
