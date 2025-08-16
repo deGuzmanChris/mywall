@@ -4,12 +4,11 @@ import Link from "next/link";
 import { useUserAuth } from "../_utils/auth-context";
 
 export default function Header() {
-  const { user, firebaseSignOut } = useUserAuth();
+  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
   return (
     <header className="bg-indigo-600 text-white px-6 py-3 flex items-center justify-between shadow-md">
-    
-      <Link href="/" className="landing-title">
+      <Link href="/" className="landing-title text-2xl font-bold">
         MyWall
       </Link>
 
@@ -24,12 +23,12 @@ export default function Header() {
           </button>
         </div>
       ) : (
-        <Link
-          href="/login"
+        <button
+          onClick={gitHubSignIn}
           className="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600 text-white"
         >
-          Login
-        </Link>
+          Login with GitHub
+        </button>
       )}
     </header>
   );

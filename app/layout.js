@@ -8,13 +8,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="flex flex-col min-h-screen bg-gray-100">
         <AuthContextProvider>
-          {/* Header is a client component */}
           <Header />
 
-          {/* Main content */}
           <main className="flex-grow container mx-auto p-4">{children}</main>
 
-          {/* Footer */}
           <footer className="bg-gray-800 text-white p-4 text-center">
             Developed by{" "}
             <a
