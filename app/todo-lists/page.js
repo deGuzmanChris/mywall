@@ -49,7 +49,7 @@ export default function TodoListsPage() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto min-h-screen bg-gray-50">
-      <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-800">
+      <h1 className="text-4xl font-extrabold mb-8 pl-4 text-center text-gray-800">
         My Todo Lists
       </h1>
 
@@ -58,15 +58,13 @@ export default function TodoListsPage() {
         <input
           value={newListName}
           onChange={(e) => setNewListName(e.target.value)}
-          placeholder="New list name..."
-          className="border border-gray-300 p-3 flex-grow rounded-lg shadow-sm
-                     focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          placeholder="New List Name"
+          
           onKeyDown={(e) => e.key === "Enter" && addList()}
         />
         <button
           onClick={addList}
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md
-                     hover:bg-blue-600 active:scale-95 transition"
+          
         >
           ➕ 
         </button>
@@ -97,7 +95,7 @@ export default function TodoListsPage() {
                 e.stopPropagation(); 
                 deleteList(list.id);
               }}
-              className="text-red-500 hover:text-red-700 active:scale-95 transition"
+              
             >
               ❌
             </button>

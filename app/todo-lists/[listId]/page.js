@@ -68,13 +68,13 @@ export default function ListPage() {
         <input
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && addItem()} // ✅ Enter support
-          placeholder="New item..."
+          onKeyDown={(e) => e.key === "Enter" && addItem()} 
+          placeholder="Add New Task"
           className="border p-2 flex-grow rounded"
         />
         <button
           onClick={addItem}
-          className="bg-green-500 text-white px-4 rounded hover:bg-green-600"
+          className="bg-green-500 text-white px-4  rounded hover:bg-green-600"
         >
           Add
         </button>
@@ -101,7 +101,7 @@ export default function ListPage() {
         ))}
       </ul>
 
-      {/* Back button */}
+   
       <button
         onClick={() => router.push("/todo-lists")}
         className="mt-4 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
