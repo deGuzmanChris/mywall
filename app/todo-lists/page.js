@@ -48,25 +48,25 @@ export default function TodoListsPage() {
   if (!user) return <p className="p-4 text-center">Please login first</p>;
 
   return (
-    <div className="p-6 max-w-4xl mx-auto min-h-screen bg-gray-50">
-      <h1 className="text-4xl font-extrabold mb-8 pl-4 text-center text-gray-800">
+    <div className="p-6 max-w-5xl mx-auto min-h-screen bg-gray-50">
+      <h1 className="text-4xl font-extrabold mb-10 text-center text-gray-800">
         My Todo Lists
       </h1>
 
       {/* Create list */}
-      <div className="flex gap-3 mb-8 justify-center">
+      <div className="flex gap-3 mb-10 justify-center">
         <input
           value={newListName}
           onChange={(e) => setNewListName(e.target.value)}
           placeholder="New List Name"
-          
+          className="flex-1 max-w-sm px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
           onKeyDown={(e) => e.key === "Enter" && addList()}
         />
         <button
           onClick={addList}
-          
+          className="px-4 py-2 bg-indigo-500 text-white font-medium rounded-lg hover:bg-indigo-600 transition"
         >
-          ➕ 
+          ➕
         </button>
       </div>
 
@@ -77,31 +77,32 @@ export default function TodoListsPage() {
         </div>
       )}
 
-      {/* Lists as cards */}
-      <ul className="flex grid gap-6 sm:grid-cols-2">
+      {/* Cards grid */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {lists.map((list) => (
-          <li
+          <div
             key={list.id}
             onClick={() => router.push(`/todo-lists/${list.id}`)}
-            className="bg-white border border-gray-200 p-6 rounded-xl shadow-lg
-                       hover:shadow-xl hover:bg-gray-50 transition cursor-pointer
-                       flex justify-between items-center"
+            className="bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition cursor-pointer p-6 flex flex-col justify-between"
           >
-            <span className="text-lg font-semibold text-gray-900">
-              {list.name}
-            </span>
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                {list.name}
+              </h2>
+              <p className="text-sm text-gray-500">Click to view details</p>
+            </div>
             <button
               onClick={(e) => {
-                e.stopPropagation(); 
+                e.stopPropagation();
                 deleteList(list.id);
               }}
-              
+              className="self-end mt-4 px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600"
             >
               ❌
             </button>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
