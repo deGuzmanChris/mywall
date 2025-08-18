@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
               href="https://github.com/deGuzmanChris"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-400 hover:underline"
+              className="text-[#3b82f6] hover:underline"
             >
               Chris de Guzman
             </a>

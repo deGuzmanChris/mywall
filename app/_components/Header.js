@@ -8,7 +8,7 @@ export default function Header() {
 
   return (
     <header className="bg-indigo-600 text-white px-6 py-3 flex items-center justify-between shadow-md">
-      <Link href="/" className="landing-title text-2xl font-bold">
+      <Link href="/" className="landing-title text-white text-2xl font-bold">
         MyWall
       </Link>
 

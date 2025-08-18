@@ -48,8 +48,8 @@ export default function TodoListsPage() {
   if (!user) return <p className="p-4 text-center">Please login first</p>;
 
   return (
-    <div className="p-6 max-w-5xl mx-auto min-h-screen bg-gray-50">
-      <h1 className="text-4xl font-extrabold mb-10 text-center text-gray-800">
+    <div className="p-6 max-w-5xl mx-auto min-h-screen">
+      <h1 className="text-4xl font-extrabold mb-10 text-center ">
         My Todo Lists
       </h1>
 
@@ -59,7 +59,7 @@ export default function TodoListsPage() {
           value={newListName}
           onChange={(e) => setNewListName(e.target.value)}
           placeholder="New List Name"
-          className="flex-1 max-w-sm px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="flex-1 max-w-sm px-4 py-2 border rounded-lg shadow-sm "
           onKeyDown={(e) => e.key === "Enter" && addList()}
         />
         <button
@@ -78,29 +78,28 @@ export default function TodoListsPage() {
       )}
 
       {/* Cards grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-3 gap-6">
         {lists.map((list) => (
           <div
             key={list.id}
             onClick={() => router.push(`/todo-lists/${list.id}`)}
-            className="bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition cursor-pointer p-6 flex flex-col justify-between"
+            className="bg-indigo-100 border-1 rounded-lg p-4"
           >
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                {list.name}
-              </h2>
-              <p className="text-sm text-gray-500">Click to view details</p>
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">{list.name}</h2>
+              <p className="text-sm text-gray-500">Click to view list</p>
             </div>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 deleteList(list.id);
               }}
-              className="self-end mt-4 px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+              className="self-end mt-4 px-3 py-1 font text-sm bg-red-500 text-white rounded hover:bg-red-600"
             >
               ❌
             </button>
           </div>
+
         ))}
       </div>
     </div>
