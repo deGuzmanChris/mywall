@@ -64,37 +64,37 @@ export default function TodoListsPage() {
         />
         <button
           onClick={addList}
-          className="px-4 py-2 bg-indigo-500 text-white font-medium rounded-lg hover:bg-indigo-600 transition"
+          className="px-4 py-2 bg-indigo-400 text-white font-medium rounded-lg hover:bg-indigo-600 transition"
         >
           ➕
         </button>
       </div>
-
+    
       {/* Empty state */}
       {lists.length === 0 && (
         <div className="text-gray-500 mt-10 text-center italic">
           No lists yet. Create one above!
         </div>
       )}
-
+  
       {/* Cards grid */}
       <div className="grid grid-cols-3 gap-6">
         {lists.map((list) => (
           <div
             key={list.id}
             onClick={() => router.push(`/todo-lists/${list.id}`)}
-            className="bg-indigo-100 border-1 rounded-lg p-4"
+            className="bg-indigo-100 border-2 rounded-lg p-4"
           >
             <div>
               <h2 className="text-xl font-semibold text-gray-900 mb-2">{list.name}</h2>
-              <p className="text-sm text-gray-500">Click to view list</p>
+              
             </div>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 deleteList(list.id);
               }}
-              className="self-end mt-4 px-3 py-1 font text-sm bg-red-500 text-white rounded hover:bg-red-600"
+              className="self-end mt-4 px-3 py-1 font text-sm bg-red-300 border-1 border-black text-white rounded hover:bg-red-500"
             >
               ❌
             </button>
